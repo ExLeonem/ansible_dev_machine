@@ -13,7 +13,7 @@
      file:
       path: "{{ item }}"
       state: directory
-     when: item.stat.exists == false
+     when: item.exists == false
      with_items:
       - ~/Desktop/projects
       - ~/Desktop/studium
