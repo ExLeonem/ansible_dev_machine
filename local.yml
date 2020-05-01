@@ -3,7 +3,7 @@
   tasks:
    - name: Install zsh
      apt:
-      name: {{items}}
+      name: "{{ items }}"
      loop:
       - zsh
       - git
