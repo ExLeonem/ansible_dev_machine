@@ -1,6 +1,6 @@
 - hosts: localhost
   become: true
   tasks:
-  - name: Install zsh
-    apt: pkg=zsh
-    sudo: yes
+   - name: Install zsh
+     apt: pkg=zsh
+     sudo: yes
