@@ -13,10 +13,9 @@
      file:
       path: "{{ item }}"
       state: directory
-     when: item.exists == false
      with_items:
-      - ~/Desktop/projects
-      - ~/Desktop/studium
+      - '~/Desktop/projects'
+      - '~/Desktop/studium'
 
    - name: set zsh as default shell
      become_user: root
