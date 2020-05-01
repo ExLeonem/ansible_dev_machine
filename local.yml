@@ -9,7 +9,16 @@
       - curl
       - docker.io
 
-   - name: finish .zsh setup
+   - name: create default folder structure
+     file:
+      path: "{{ item }}"
+      state: directory
+     when: item.stat.exists == false
+     with_items:
+      - ~/Desktop/projects
+      - ~/Desktop/studium
+
+   - name: set zsh as default shell
      become_user: root
      shell: |
       chsh -s /bin/zsh
@@ -34,8 +43,3 @@
      shell: |
       systemctl start docker
       systemctl enable docker
-
-   - name: create default folder structure
-     shell: |
-      mkdir ~/Desktop/projects
-      mkdir ~/Desktop/studium
