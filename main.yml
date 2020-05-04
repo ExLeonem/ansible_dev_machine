@@ -10,6 +10,7 @@
         oh_my_zsh:
           theme: agnoster
   
+
   tasks:
     - name: install various packages git, curl, firacode, docker
       apt: name="{{item}}"
@@ -19,6 +20,7 @@
         - fonts-firacode
         - docker.io
         - docker-compose
+
 
     - name: create default folder structure
       file:
@@ -30,6 +32,7 @@
         - '{{lookup("env", "HOME")}}/Desktop/projects'
         - '{{lookup("env", "HOME")}}/Desktop/studium'
 
+
    # Install tools & languages 
     - name: configure zsh to allow jumps with strg(ctrl) + left/right arrow
       become_user: root
@@ -37,6 +40,23 @@
         echo 'bindkey "^[[1;5C" forward-word' >> '{{lookup("env", "HOME")}}/.zshrc'
         echo 'bindkey "^[[1;5D" backward-word' >> '{{lookup("env", "HOME")}}/.zshrc'
      
+ 
+    # Required packages for elxiir, erlang and nodejs
+    - name: install requirements for programming languages
+      apt: name="{{item}}"
+      with_items:
+        - build-essential
+        - autoconf
+        - m4
+        - libncurses5-dev
+        - libssh-dev
+        - xsltproc 
+        - fop
+        - unixodbc-dev
+        - unzip
+        - dirmngr
+        - gpg
+
     - name: install programming languages
       include_role:
         name: particledecay.asdf
@@ -50,28 +70,27 @@
             versions:
               - "1.10.3"
             global: "1.10.3"
+          # - name: nodejs
+          #   versions:
+          #     - "14.0.0"
+          #   global: "14.0.0"
 
-    # - name: install .asdf
+            ### Eventually extend with more programing languages
+
+
+    # Uncomment to enable use in zsh
+    # - name: configure zsh to use asdf
     #   shell: |
-    #     git clone https://github.com/asdf-vm/asdf.git {{lookup("env", "HOME")}}/.asdf --branch v0.7.8
     #     echo '. $HOME/.asdf/asdf.sh' >> {{lookup("env", "HOME")}}/.zshrc
-    #     echo '. $HOME/.asdf/asdf.sh' >> {{lookup("env", "HOME")}}/.bashrc
 
-    # - name: change .asdf access permissions to default
-    #   file: dest='{{lookup("env", "HOME")}}/.asdf' owner='{{lookup("env", "USER")}}' group='{{lookup("env", "USER")}}' mode=u=rwX,g=rX,o=rX recurse=yes
-    
-    # - name: change .asdf executeable permission to execute
-    #   file: dest='{{lookup("env", "HOME")}}/.asdf/bin/asdf' mode=777
-    
-    # - name: install elixir via .asdf
-    #   become_user: root
-    #   shell: |
-    #     {{lookup("env", "HOME")}}/.asdf/bin/asdf plugin remove elixir
-    #     {{lookup("env", "HOME")}}/.asdf/bin/asdf plugin remove erlang
-
-    #     {{lookup("env", "HOME")}}/.asdf/bin/asdf plugin add elixir
-    #     {{lookup("env", "HOME")}}/.asdf/bin/asdf plugin add erlang https://github.com/asdf-vm/asdf-erlang
-
+    - name: installing anaconda
+      import_role:
+        name: crivetimihai.anaconda
+      vars:
+        anaconda_url: "https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh"
+        anaconda_path: "{{lookup('env', 'HOME')}}/.anaconda3"
+        anaconda_user: "{{lookup('env', 'USER')}}"
+      tags: anaconda
   
   # Install development mandatory applications
     - name: install vs-code
@@ -84,6 +103,7 @@
         apt-get update
         apt-get install code
 
+
     - name: install vs-code extensions
       become_user: '{{lookup("env", "USER")}}'
       shell: |
@@ -92,6 +112,7 @@
         code --install-extension nickdodd79.gulptasks
         code --install-extension mjmcloug.vscode-elixir
         code --install-extension dsznajder.es7-react-js-snippets
+
 
     - name: enable docker to run services at startup 
       become_user: root

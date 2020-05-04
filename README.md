@@ -2,6 +2,8 @@
 # Automation of local development setup
 A personal base setup for my development machines. To automatically perform the setup follow the guid at [How to run the setup](#How-to-run-the-setup).
 
+Check [asdf](https://github.com/asdf-vm/asdf-plugins) for more tools and languages.
+
 
 ## Requirements:
 - Ansible (tested with 2.9.6)
@@ -38,8 +40,10 @@ ansible-playbook -K main.yml
  | zsh             | shell
  | [oh-my-zsh](https://ohmyz.sh/)       | theme
  | [docker](https://www.docker.com/)          | virtualisation, development
- | [elixir](https://elixir-lang.org/) | Programming language
- | [erlang](https://www.erlang.org/) | Programming language
+ | [elixir](https://elixir-lang.org/) v.1.10.3 | Programming language
+ | [erlang](https://www.erlang.org/) v.22.3.3 | Programming language
+ | [nodejs](https://nodejs.org/en/) v.14.0.0 | Programming language
+ | [anaconda](https://www.anaconda.com/) | Programming language, package manager
  | [FiraCode](https://github.com/tonsky/FiraCode)        | Font
  | [VS-Code ](https://code.visualstudio.com/)        | Editor
  | [Gulp Tasks](https://marketplace.visualstudio.com/items?itemName=nickdodd79.gulptasks)       | VS-Code Extension
