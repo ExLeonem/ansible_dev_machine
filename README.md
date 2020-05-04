@@ -54,6 +54,8 @@ ansible-playbook -K main.yml
 ## Roadmap
 Utilities/Tools/Applications that will be added.
 
+| To be installed | Category 
+| ---             | ---    
 | [meta](https://github.com/mateodelnorte/meta) | Meta-Repository management
 | Slack | Communication tool
 | [Django]() | library
