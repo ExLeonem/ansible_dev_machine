@@ -81,21 +81,12 @@
             versions:
               - "1.10.3"
             global: "1.10.3"
-          - name: nodejs
-            versions:
-              - "14.0.0"
-            global: "14.0.0"
-            pre_install: |
-              bash ~/.asdf/plugins/nodejs/bin/import-release-team-keyring
             
 
 
     ### Eventually extend with more programing languages
 
     # # Uncomment to enable use in zsh
-    - name: configure zsh to use asdf
-      shell: |
-        echo '. $HOME/.asdf/asdf.sh' >> {{lookup("env", "HOME")}}/.zshrc
   
   # # Install development mandatory applications
   #   - name: install vs-code
@@ -145,5 +136,11 @@
     #     echo Type=Application >> {{lookup('env', 'HOME')}}/.local/share/applications/Postman.desktop
     #     echo Categories=Development; >> {{lookup('env', 'HOME')}}/.local/share/applications/Postman.desktop
 
+
+
+    - name: set zsh as default shell
+      become: root
+      shell: |
+        chsh -s /bin/zsh
 
   # Eventually needs to set zsh as default shell
