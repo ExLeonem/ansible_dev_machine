@@ -1,14 +1,14 @@
 - hosts: localhost
   become: true
-  roles:
-    - weareinteractive.users_oh_my_zsh
-  vars:
-    users:
-      - name: Username
-        username: "{{lookup('env', 'USER')}}"
-        authorized_keys: []
-        oh_my_zsh:
-          theme: agnoster
+  # roles:
+  #   - weareinteractive.users_oh_my_zsh
+  # vars:
+  #   users:
+  #     - name: Username
+  #       username: "{{lookup('env', 'USER')}}"
+  #       authorized_keys: []
+  #       oh_my_zsh:
+  #         theme: agnoster
 
   tasks:
 
@@ -68,19 +68,8 @@
   #       - dirmngr
   #       - gpg
 
-    - name: install programming languages
-      include_role:
-        name: ex.asdf
-      vars:
-        asdf_plugins:
-          - name: erlang
-            versions:
-              - "22.3.3" 
-            global: "22.3.3"
-          - name: elixir
-            versions:
-              - "1.10.3"
-            global: "1.10.3"
+    
+    - include_tasks: ./tasks/install_asdf.yml
             
 
 
@@ -137,10 +126,9 @@
     #     echo Categories=Development; >> {{lookup('env', 'HOME')}}/.local/share/applications/Postman.desktop
 
 
-
-    - name: set zsh as default shell
-      become: root
-      shell: |
-        chsh -s /bin/zsh
+    # - name: set zsh as default shell
+    #   become: root
+    #   shell: |
+    #     chsh -s /bin/zsh
 
   # Eventually needs to set zsh as default shell

@@ -1,0 +1,24 @@
+- name: install elixir plugin
+  shell: zsh -lc 'asdf plugin-add elixir'
+
+
+# - name: Check if {{ item.0.name }} plugin already exists
+#   stat:
+#     path: "{{ asdf_path }}/plugins/{{ item.0.name }}"
+#   register: plugin_path
+#   changed_when: false
+
+# - name: Install asdf {{ item.0.name }} plugin
+#   shell: zsh -lc 'asdf plugin-add {{ item.0.name }} {{ item.0.repository | default("") }}'
+#   when: not plugin_path.stat.exists
+#   register: plugin_exec
+#   failed_when: plugin_exec.rc != 0 and plugin_exec.rc != 2
+
+# # - name: execute pre-installation hook for a plugin
+# #   shell: "{{item.0.pre_install}}"
+# #   ignore_errors: true
+
+# - name: Install asdf plugin {{ item.0.name }} version {{ item.1 }}
+#   shell: zsh -lc 'asdf install {{ item.0.name }} {{ item.1 }}'
+#   register: plugin_install
+#   changed_when: plugin_install.stdout is not search("is already installed")
