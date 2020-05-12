@@ -1,140 +1,149 @@
 - hosts: localhost
   become: true
-  roles:
-   - weareinteractive.users_oh_my_zsh
-  vars:
-   users:
-    - name: Username
-      username: "{{lookup('env', 'USER')}}"
-      authorized_keys: []
-      oh_my_zsh:
-       theme: agnoster
+  # roles:
+  #  - weareinteractive.users_oh_my_zsh
+  # vars:
+  #  users:
+  #   - name: Username
+  #     username: "{{lookup('env', 'USER')}}"
+  #     authorized_keys: []
+  #     oh_my_zsh:
+  #      theme: agnoster
 
   tasks:
 
-    - name: installing anaconda
-      import_role:
-        name: crivetimihai.anaconda
-      vars:
-        anaconda_url: "https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh"
-        anaconda_path: "{{lookup('env', 'HOME')}}/.anaconda3"
-        anaconda_user: "{{lookup('env', 'USER')}}"
-      tags: anaconda
+    # - name: install various packages git, curl, firacode, docker
+    #   apt: name="{{item}}"
+    #   with_items:
+    #     - git
+    #     - curl
+    #     - fonts-firacode
+    #     - docker.io
+    #     - docker-compose
 
 
-    - name: install various packages git, curl, firacode, docker
-      apt: name="{{item}}"
-      with_items:
-        - git
-        - curl
-        - fonts-firacode
-        - docker.io
-        - docker-compose
+    # - name: create default folder structure
+    #   file:
+    #     path: "{{ item }}"
+    #     owner: '{{lookup("env", "USER")}}'
+    #     group: '{{lookup("env", "USER")}}'
+    #     mode: '775'
+    #     state: directory
+    #   loop:
+    #     - '{{lookup("env", "HOME")}}/Desktop/projects'
+    #     - '{{lookup("env", "HOME")}}/Desktop/studium'
 
 
-    - name: create default folder structure
-      file:
-        path: "{{ item }}"
-        owner: '{{lookup("env", "USER")}}'
-        group: '{{lookup("env", "USER")}}'
-        mode: '775'
-        state: directory
-      loop:
-        - '{{lookup("env", "HOME")}}/Desktop/projects'
-        - '{{lookup("env", "HOME")}}/Desktop/studium'
-
-
-    # Install tools & languages 
-    - name: configure zsh to allow jumps with strg(ctrl) + left/right arrow
-      become_user: root
-      shell: |
-        echo 'bindkey "^[[1;5C" forward-word' >> '{{lookup("env", "HOME")}}/.zshrc'
-        echo 'bindkey "^[[1;5D" backward-word' >> '{{lookup("env", "HOME")}}/.zshrc'
+    # # Install tools & languages 
+    # - name: configure zsh to allow jumps with strg(ctrl) + left/right arrow
+    #   become_user: root
+    #   shell: |
+    #     echo 'bindkey "^[[1;5C" forward-word' >> '{{lookup("env", "HOME")}}/.zshrc'
+    #     echo 'bindkey "^[[1;5D" backward-word' >> '{{lookup("env", "HOME")}}/.zshrc'
     
 
-    # Required packages for elxiir, erlang and nodejs
-    - name: install requirements for programming languages
-      apt: name="{{item}}"
-      with_items:
-        - build-essential
-        - autoconf
-        - m4
-        - libncurses5-dev
-        - libssh-dev
-        - xsltproc 
-        - fop
-        - unixodbc-dev
-        - unzip
-        - dirmngr
-        - gpg
-        - tensorman
-        - nvidia-container-runtime
+    # # Required packages for elxiir, erlang and nodejs
+    # - name: install requirements for programming languages
+    #   apt: name="{{item}}"
+    #   with_items:
+    #     - build-essential
+    #     - autoconf
+    #     - m4
+    #     - libncurses5-dev
+    #     - libssh-dev
+    #     - xsltproc 
+    #     - fop
+    #     - unixodbc-dev
+    #     - unzip
+    #     - dirmngr
+    #     - gpg
+    #     - tensorman
 
+
+    # - name: setup cuda support
+    #   apt: nvidia-container-runtime
   
-    - include_tasks: ./tasks/install_asdf.yml
+    # - include_tasks: ./tasks/install_asdf.yml
           
 
-    # Install development mandatory applications
-    - name: install vs-code
-      become_user: root
-      shell: |
-        curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg     
-        install -o root -g root -m 644 packages.microsoft.gpg /usr/share/keyrings/
-        sh -c 'echo "deb [arch=amd64 signed-by=/usr/share/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'
-        apt-get install apt-transport-https
-        apt-get update
-        apt-get install code
+    # # Install development mandatory applications
+    # - name: install vs-code
+    #   become_user: root
+    #   shell: |
+    #     curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg     
+    #     install -o root -g root -m 644 packages.microsoft.gpg /usr/share/keyrings/
+    #     sh -c 'echo "deb [arch=amd64 signed-by=/usr/share/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'
+    #     apt-get install apt-transport-https
+    #     apt-get update
+    #     apt-get install code
 
 
-    - name: install vs-code extensions
-      become_user: '{{lookup("env", "USER")}}'
-      shell: |
-        code --install-extension ahmadawais.shades-of-purple
-        code --install-extension sdras.night-owl
-        code --install-extension nickdodd79.gulptasks
-        code --install-extension mjmcloug.vscode-elixir
-        code --install-extension dsznajder.es7-react-js-snippets
-        code --install-extension 42Crunch.vscode-openapi
+    # - name: install vs-code extensions
+    #   become_user: '{{lookup("env", "USER")}}'
+    #   shell: |
+    #     code --install-extension ahmadawais.shades-of-purple
+    #     code --install-extension sdras.night-owl
+    #     code --install-extension nickdodd79.gulptasks
+    #     code --install-extension mjmcloug.vscode-elixir
+    #     code --install-extension dsznajder.es7-react-js-snippets
+    #     code --install-extension 42Crunch.vscode-openapi
 
 
-    - name: enable docker to run services at startup 
-      become_user: root
-      shell: |
-        systemctl start docker
-        systemctl enable docker
+    # - name: enable docker to run services at startup 
+    #   become_user: root
+    #   shell: |
+    #     systemctl start docker
+    #     systemctl enable docker
 
 
-    - name: installing postman
-      become: root
-      shell: |
-        curl https://dl.pstmn.io/download/latest/linux64 --output {{lookup('env', 'HOME')}}/Downloads/postman.tar.gz
+    # - name: installing postman
+    #   become: root
+    #   shell: |
+    #     curl https://dl.pstmn.io/download/latest/linux64 --output {{lookup('env', 'HOME')}}/Downloads/postman.tar.gz
 
-        sudo tar -xf {{lookup('env', 'HOME')}}/Downloads/postman.tar.gz -C /opt
+    #     sudo tar -xf {{lookup('env', 'HOME')}}/Downloads/postman.tar.gz -C /opt
 
-        rm -rf {{lookup('env', 'HOME')}}/Downloads/postman.tar.gz
+    #     rm -rf {{lookup('env', 'HOME')}}/Downloads/postman.tar.gz
 
-        touch {{lookup('env', 'HOME')}}/.local/share/applications/Postman.desktop
-        echo [Desktop Entry] >> {{lookup('env', 'HOME')}}/.local/share/applications/Postman.desktop
-        echo Encoding=UTF-8 >> {{lookup('env', 'HOME')}}/.local/share/applications/Postman.desktop
-        echo Name=Postman >> {{lookup('env', 'HOME')}}/.local/share/applications/Postman.desktop
-        echo Exec=/opt/Postman/app/Postman %U >> {{lookup('env', 'HOME')}}/.local/share/applications/Postman.desktop
-        echo Icon=/opt/Postman/app/resources/app/assets/icon.png >> {{lookup('env', 'HOME')}}/.local/share/applications/Postman.desktop
-        echo Terminal=false >> {{lookup('env', 'HOME')}}/.local/share/applications/Postman.desktop
-        echo Type=Application >> {{lookup('env', 'HOME')}}/.local/share/applications/Postman.desktop
-        echo Categories=Development; >> {{lookup('env', 'HOME')}}/.local/share/applications/Postman.desktop
-
-
-    - name: set zsh as default shell
-      become: root
-      shell: |
-        sudo chsh -s /bin/zsh
+    #     touch {{lookup('env', 'HOME')}}/.local/share/applications/Postman.desktop
+    #     echo [Desktop Entry] >> {{lookup('env', 'HOME')}}/.local/share/applications/Postman.desktop
+    #     echo Encoding=UTF-8 >> {{lookup('env', 'HOME')}}/.local/share/applications/Postman.desktop
+    #     echo Name=Postman >> {{lookup('env', 'HOME')}}/.local/share/applications/Postman.desktop
+    #     echo Exec=/opt/Postman/app/Postman %U >> {{lookup('env', 'HOME')}}/.local/share/applications/Postman.desktop
+    #     echo Icon=/opt/Postman/app/resources/app/assets/icon.png >> {{lookup('env', 'HOME')}}/.local/share/applications/Postman.desktop
+    #     echo Terminal=false >> {{lookup('env', 'HOME')}}/.local/share/applications/Postman.desktop
+    #     echo Type=Application >> {{lookup('env', 'HOME')}}/.local/share/applications/Postman.desktop
+    #     echo Categories=Development; >> {{lookup('env', 'HOME')}}/.local/share/applications/Postman.desktop
 
 
-    - name: add tensorman to the docker group
-      become: root
-      command: sudo usermod -aG docker $USER
+    # - name: set zsh as default shell
+    #   become: root
+    #   shell: |
+    #     sudo chsh -s /bin/zsh
 
 
-    - name: install meta for multi-repository management
-      command: npm i -g meta
-    
+    # - name: add tensorman to the docker group
+    #   become: root
+    #   command: sudo usermod -aG docker $USER
+
+
+    # - name: install different global npm packages
+    #   command: npm i -g {{item}}
+    #   with_items:
+    #     - meta
+    #     - sass
+
+
+    # - name: install the slack client
+    #   become: root
+    #   shell:
+    #     curl -v https://downloads.slack-edge.com/linux_releases/slack-desktop-4.4.2-amd64.deb --output {{lookup('env', 'HOME')}}/Downloads/slack.deb
+
+    #     sudo apt-get install -y {{lookup('env', 'HOME')}}/Downloads/slack.deb
+
+    #     rm -rf {{lookup('env', 'HOME')}}/Downloads/slack.deb
+
+
+    - include_tasks: ./tasks/install_anaconda.yml
+
+

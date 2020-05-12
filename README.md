@@ -8,6 +8,7 @@ Check [asdf](https://github.com/asdf-vm/asdf-plugins) for more tools and languag
 ## Requirements:
 - Ansible (tested with 2.9.6)
 - Linux (tested with ubuntu 20.04 & 19.10)
+- English directory naming & base directories like (~/Downloads, ~/Desktop, ~) with write/read permission
 
 
 <!-- ``
@@ -48,6 +49,10 @@ ansible-playbook -K main.yml
  | [ES7 React Snippets](https://marketplace.visualstudio.com/items?itemName=dsznajder.es7-react-js-snippets)      | VS-Code Extension
  | [vscode-elixir](https://marketplace.visualstudio.com/items?itemName=mjmcloug.vscode-elixir)      | VS-Code Extension
  | [Shades of Purple](https://marketplace.visualstudio.com/items?itemName=ahmadawais.shades-of-purple)           | VS-Code Theme
+ | [tensorman](https://github.com/pop-os/tensorman) | TF package manager
+ | [meta](https://github.com/mateodelnorte/meta) | Meta-Repository management
+ | [postman](https://www.postman.com/) | REST API testing
+ | [Slack](https://slack.com/intl/de-de/)| Communication tool
 
 
 
@@ -56,11 +61,9 @@ Utilities/Tools/Applications that will be added.
 
 | To be installed | Category 
 | ---             | ---    
-| [meta](https://github.com/mateodelnorte/meta) | Meta-Repository management
-| Slack | Communication tool
 | [Django]() | library
 | [PyTorch](https://pytorch.org/) | library
 | [nodejs](https://nodejs.org/en/) v.14.0.0 | Programming language
 | [Sass](https://sass-lang.com/) | CSS transpiler
 | [anaconda](https://www.anaconda.com/) | Programming language, package manager
-| [postman](#) | REST API testing
+

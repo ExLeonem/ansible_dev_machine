@@ -1,0 +1,31 @@
+---
+
+# - name: download anaconda
+#   command: curl https://repo.anaconda.com/archive/Anaconda3-2020.02-Linux-x86_64.sh --output {{lookup('env', 'HOME')}}/Downloads/conda.sh
+
+
+# - name: make anaconda script executeable
+#   command: chmod +777 {{lookup('env', 'HOME')}}/Downloads/conda.sh
+#   become: true
+
+
+# - name: install Anaconda
+#   command: "{{lookup('env', 'HOME')}}/Downloads/conda.sh -b -p {{lookup('env', 'HOME')}}/.anaconda"
+#   become: true
+
+
+# - name: remove anaconda installation script
+#   command: rm -rf {{lookup('env', 'HOME')}}/Downloads/conda.sh
+
+
+# - name: add anaconda to path
+#   command: echo "export PATH=$HOME/.anaconda/bin:$PATH" >> {{lookup('env', 'HOME')}}/.zshrc  
+
+
+- name: change anaconda directory permissions
+  file: dest=/foo/bar/somedir owner=root group=apache mode=0775
+
+- name: change anaconda directory permission
+  file:
+    path:  {{lookup('env', 'HOME')}}/.anaconda
+
