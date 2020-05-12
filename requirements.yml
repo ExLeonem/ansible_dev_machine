@@ -1,4 +1,4 @@
-roles:
-  - src: weareinteractive.users_oh_my_zsh
-  - src: particledecay.asdf
-  - src: crivetimihai.anaconda
+
+- src: weareinteractive.users_oh_my_zsh
+- src: particledecay.asdf
+- src: crivetimihai.anaconda
