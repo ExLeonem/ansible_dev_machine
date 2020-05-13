@@ -17,13 +17,6 @@
 
 
 - name: add anaconda to path
-  command: echo "export PATH=$HOME/.anaconda/bin:$PATH" >> {{lookup('env', 'HOME')}}/.zshrc  
-
-
-- name: change anaconda directory permissions
-  file: dest=/foo/bar/somedir owner=root group=apache mode=0775
-
-# - name: change anaconda directory permission
-#   file:
-#     path:  {{lookup('env', 'HOME')}}/.anaconda
+  shell: |
+    echo 'export PATH=~/.anaconda/bin:$PATH' >> '{{lookup('env', 'HOME')}}/.zshrc'
 

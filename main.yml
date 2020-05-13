@@ -1,123 +1,124 @@
 - hosts: 127.0.0.1
   connection: local
-  # roles:
-  #  - gantsign.antigen
-  # vars:
-  #  users:
-  #   - username: "{{lookup('env', 'USER')}}"
-  #     become: yes
-  #     antigen_libraries:
-  #       - name: oh-my-zsh
-  #     antigen_theme:
-  #       name: agnoster
-  #     antigen_bundles:
-  #       - name: git
-  #       - name: docker
+  roles:
+   - gantsign.antigen
+  vars:
+   users:
+    - username: "{{lookup('env', 'USER')}}"
+      become: yes
+      antigen_libraries:
+        - name: oh-my-zsh
+      antigen_theme:
+        name: agnoster
+      antigen_bundles:
+        - name: git
+        - name: docker
 
   tasks:
 
-    # - name: install various packages git, curl, firacode, docker
-    #   become: yes
-    #   apt: name="{{item}}"
-    #   with_items:
-    #     - git
-    #     - curl
-    #     - fonts-firacode
-    #     - docker.io
-    #     - docker-compose
+    - name: install various packages git, curl, firacode, docker
+      become: yes
+      apt: name="{{item}}"
+      with_items:
+        - git
+        - curl
+        - fonts-firacode
+        - docker.io
+        - docker-compose
 
 
-    # - name: create default folder structure
-    #   file:
-    #     path: "{{ item }}"
-    #     owner: '{{lookup("env", "USER")}}'
-    #     group: '{{lookup("env", "USER")}}'
-    #     mode: '775'
-    #     state: directory
-    #   loop:
-    #     - '{{lookup("env", "HOME")}}/Desktop/projects'
-    #     - '{{lookup("env", "HOME")}}/Desktop/studium'
+    - name: create default folder structure
+      file:
+        path: "{{ item }}"
+        owner: '{{lookup("env", "USER")}}'
+        group: '{{lookup("env", "USER")}}'
+        mode: '775'
+        state: directory
+      loop:
+        - '{{lookup("env", "HOME")}}/Desktop/projects'
+        - '{{lookup("env", "HOME")}}/Desktop/studium'
 
 
-    # # Install tools & languages 
-    # - name: configure zsh to allow jumps with strg(ctrl) + left/right arrow
-    #   shell: |
-    #     echo 'bindkey "^[[1;5C" forward-word' >> '{{lookup("env", "HOME")}}/.zshrc'
-    #     echo 'bindkey "^[[1;5D" backward-word' >> '{{lookup("env", "HOME")}}/.zshrc'
+    # Install tools & languages 
+    - name: configure zsh to allow jumps with strg(ctrl) + left/right arrow
+      shell: |
+        echo 'bindkey "^[[1;5C" forward-word' >> '{{lookup("env", "HOME")}}/.zshrc'
+        echo 'bindkey "^[[1;5D" backward-word' >> '{{lookup("env", "HOME")}}/.zshrc'
     
 
-    # # Required packages for elxiir, erlang and nodejs
-    # - name: install requirements for programming languages
-    #   become: yes
-    #   apt: name="{{item}}"
-    #   with_items:
-    #     - build-essential
-    #     - autoconf
-    #     - m4
-    #     - libncurses5-dev
-    #     - libssh-dev
-    #     - xsltproc 
-    #     - fop
-    #     - unixodbc-dev
-    #     - unzip
-    #     - dirmngr
-    #     - gpg
-    #     - tensorman
-    #     - nvidia-container-runtime
+    # Required packages for elxiir, erlang and nodejs
+    - name: install requirements for programming languages
+      become: yes
+      apt: name="{{item}}"
+      with_items:
+        - build-essential
+        - autoconf
+        - m4
+        - libncurses5-dev
+        - libssh-dev
+        - xsltproc 
+        - fop
+        - unixodbc-dev
+        - unzip
+        - dirmngr
+        - gpg
+        - tensorman
+        - nvidia-container-runtime
             
 
-    # # Install development mandatory applications
-    # - name: enable docker to run services at startup 
-    #   become: yes
-    #   shell: |
-    #     systemctl start docker
-    #     systemctl enable docker
+    # Install development mandatory applications
+    - name: enable docker to run services at startup 
+      become: yes
+      shell: |
+        systemctl start docker
+        systemctl enable docker
 
 
-    # - name: installing postman
-    #   become: yes
-    #   shell: |
-    #     curl https://dl.pstmn.io/download/latest/linux64 --output {{lookup('env', 'HOME')}}/Downloads/postman.tar.gz
+    - name: installing postman
+      become: yes
+      shell: |
+        curl https://dl.pstmn.io/download/latest/linux64 --output {{lookup('env', 'HOME')}}/Downloads/postman.tar.gz
 
-    #     sudo tar -xf {{lookup('env', 'HOME')}}/Downloads/postman.tar.gz -C /opt
+        sudo tar -xf {{lookup('env', 'HOME')}}/Downloads/postman.tar.gz -C /opt
 
-    #     rm -rf {{lookup('env', 'HOME')}}/Downloads/postman.tar.gz
+        rm -rf {{lookup('env', 'HOME')}}/Downloads/postman.tar.gz
 
-    #     touch {{lookup('env', 'HOME')}}/.local/share/applications/Postman.desktop
-    #     echo [Desktop Entry] >> {{lookup('env', 'HOME')}}/.local/share/applications/Postman.desktop
-    #     echo Encoding=UTF-8 >> {{lookup('env', 'HOME')}}/.local/share/applications/Postman.desktop
-    #     echo Name=Postman >> {{lookup('env', 'HOME')}}/.local/share/applications/Postman.desktop
-    #     echo Exec=/opt/Postman/app/Postman %U >> {{lookup('env', 'HOME')}}/.local/share/applications/Postman.desktop
-    #     echo Icon=/opt/Postman/app/resources/app/assets/icon.png >> {{lookup('env', 'HOME')}}/.local/share/applications/Postman.desktop
-    #     echo Terminal=false >> {{lookup('env', 'HOME')}}/.local/share/applications/Postman.desktop
-    #     echo Type=Application >> {{lookup('env', 'HOME')}}/.local/share/applications/Postman.desktop
-    #     echo Categories=Development; >> {{lookup('env', 'HOME')}}/.local/share/applications/Postman.desktop
-
-
-    # - name: set zsh as default shell
-    #   become: yes
-    #   shell: |
-    #     chsh -s /bin/zsh
+        touch {{lookup('env', 'HOME')}}/.local/share/applications/Postman.desktop
+        echo [Desktop Entry] >> {{lookup('env', 'HOME')}}/.local/share/applications/Postman.desktop
+        echo Encoding=UTF-8 >> {{lookup('env', 'HOME')}}/.local/share/applications/Postman.desktop
+        echo Name=Postman >> {{lookup('env', 'HOME')}}/.local/share/applications/Postman.desktop
+        echo Exec=/opt/Postman/app/Postman %U >> {{lookup('env', 'HOME')}}/.local/share/applications/Postman.desktop
+        echo Icon=/opt/Postman/app/resources/app/assets/icon.png >> {{lookup('env', 'HOME')}}/.local/share/applications/Postman.desktop
+        echo Terminal=false >> {{lookup('env', 'HOME')}}/.local/share/applications/Postman.desktop
+        echo Type=Application >> {{lookup('env', 'HOME')}}/.local/share/applications/Postman.desktop
+        echo Categories=Development; >> {{lookup('env', 'HOME')}}/.local/share/applications/Postman.desktop
 
 
-    # - include_tasks: ./tasks/install_asdf.yml
+    - name: set zsh as default shell
+      become: yes
+      shell: |
+        chsh -s /bin/zsh
 
-    # - name: install different global npm packages
-    #   command: npm i -g {{item}}
-    #   with_items:
-    #     - meta
-    #     - sass
+
+    - include_tasks: ./tasks/install_asdf.yml
+
+
+    - name: install different global npm packages
+      command: npm i -g {{item}}
+      with_items:
+        - meta
+        - sass
+
 
     - name: install the slack client
       become: yes
       shell:
         curl -v https://downloads.slack-edge.com/linux_releases/slack-desktop-4.4.2-amd64.deb --output {{lookup('env', 'HOME')}}/Downloads/slack.deb
-
         sudo apt-get install -y {{lookup('env', 'HOME')}}/Downloads/slack.deb
-
         rm -rf {{lookup('env', 'HOME')}}/Downloads/slack.deb
 
 
     - include_tasks: ./tasks/install_anaconda.yml
+
 
 
