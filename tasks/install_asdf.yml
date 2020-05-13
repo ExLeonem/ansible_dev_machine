@@ -1,39 +1,30 @@
 ---
 - name: Set asdf install location 
   set_fact:
-    asdf_path: "{{ lookup('env', 'HOME') }}/.asdf"
+    asdf_path: "{{lookup('env', 'HOME')}}/.asdf"
   changed_when: false
   when: ansible_system == "Linux"
 
 - name: Clone asdf to local dir
   git:
     repo: https://github.com/asdf-vm/asdf.git
-    dest: "{{ asdf_path }}"
+    dest: "{{asdf_path}}"
     version: v0.7.8
     update: no
-  when: ansible_system == "Linux"
-
-- name: add cloned repository to user group and grant access
-  file:
-    path: "{{ asdf_path }}"
-    state: directory
-    mode: '777'
-    owner: "{{ lookup('env', 'USER') }}"
-    group: "{{ lookup('env', 'USER') }}"
-    recurse: true
   when: ansible_system == "Linux"
 
 - name: source asdf on zsh launch
   shell: |
     echo '. $HOME/.asdf/asdf.sh' >> {{lookup("env", "HOME")}}/.zshrc
 
-# - include_tasks: ./tasks/install_asdf_plugins.yml
+- include_tasks: ./tasks/install_asdf_plugins.yml
+
 
 # - include_tasks: plugins.yml
-  # with_subelements:
-    # - "{{ asdf_plugins }}"
-    # - "versions"
-  # when: asdf_plugins | length > 0
+#   with_subelements:
+#     - "{{ asdf_plugins }}"
+#     - "versions"
+#   when: asdf_plugins | length > 0
 
 # - name: Set global version for {{ item.name }}
 #   shell: bash -lc 'source {{ asdf_path }}/asdf.sh; asdf global {{ item.name }} {{ item.global }}'

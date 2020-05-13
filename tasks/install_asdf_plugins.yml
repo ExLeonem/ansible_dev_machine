@@ -1,6 +1,51 @@
-- name: install elixir plugin
-  shell: zsh -lc 'asdf plugin-add elixir'
 
+- name: add erlang plugin
+  shell: zsh -lc "source {{lookup('env', 'HOME')}}/.asdf/asdf.sh; asdf plugin-add erlang"
+
+- name: install erlang plugin
+  shell: zsh -lc "source {{lookup('env', 'HOME')}}/.asdf/asdf.sh; asdf install erlang 23.0"
+
+- name: set global erlang version
+  shell: zsh -lc "source {{lookup('env', 'HOME')}}/.asdf/asdf.sh; asdf global erlang 23.0"
+
+
+- name: add elixir plugin
+  shell: zsh -lc "source {{lookup('env', 'HOME')}}/.asdf/asdf.sh; asdf plugin-add elixir"
+
+- name: install elixir plugin
+  shell: zsh -lc "source {{lookup('env', 'HOME')}}/.asdf/asdf.sh; asdf install elixir 1.10.3-otp-23"
+
+- name: set global elixir version
+  shell: zsh -lc "source {{lookup('env', 'HOME')}}/.asdf/asdf.sh; asdf global elixir 1.10.3-otp-23"
+
+
+- name: add nodejs plugin
+  shell: zsh -lc "source {{lookup('env', 'HOME')}}/.asdf/asdf.sh; asdf plugin-add nodejs"
+
+- name: add nodejs keyring to keyrings
+  shell: bash {{lookup('env', 'HOME')}}/.asdf/plugins/nodejs/bin/import-release-team-keyring
+
+- name: install nodejs plugin
+  shell: zsh -lc "source {{lookup('env', 'HOME')}}/.asdf/asdf.sh; asdf install nodejs 14.0.0"
+
+- name: set global nodejs
+  shell: zsh -lc "source {{lookup('env', 'HOME')}}/.asdf/asdf.sh; asdf global nodejs 14.0.0"
+
+
+- name: add rust plugin
+  shell: zsh -lc "source {{lookup('env', 'HOME')}}/.asdf/asdf.sh; asdf plugin-add rust"
+
+- name: install rust nightly
+  shell: zsh -lc "source {{lookup('env', 'HOME')}}/.asdf/asdf.sh; asdf install rust nightly"
+
+- name: install rust 1.43.1
+  shell: zsh -lc "source {{lookup('env', 'HOME')}}/.asdf/asdf.sh; asdf install rust 1.43.1"
+
+- name: set global rust version
+  shell: zsh -lc "source {{lookup('env', 'HOME')}}/.asdf/asdf.sh; asdf global rust nightly"
+
+
+# TODO: Replace manual installation by loops, only define parameters of plugins
 
 # - name: Check if {{ item.0.name }} plugin already exists
 #   stat:
