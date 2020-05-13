@@ -5,6 +5,7 @@ A personal base setup for my development machines. To automatically perform the 
 Check [asdf](https://github.com/asdf-vm/asdf-plugins) for more tools and languages.
 
 
+
 ## Requirements:
 - Ansible (tested with 2.9.6)
 - Linux (tested with ubuntu 20.04 & 19.10)
@@ -67,3 +68,5 @@ Utilities/Tools/Applications that will be added.
 | [Sass](https://sass-lang.com/) | CSS transpiler
 | [anaconda](https://www.anaconda.com/) | Programming language, package manager
 
+
+- [ ] Check for nvidia graphics card on installation of cuda
