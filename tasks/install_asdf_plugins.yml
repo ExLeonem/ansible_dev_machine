@@ -2,7 +2,7 @@
 - name: add erlang plugin
   shell: zsh -lc "source {{lookup('env', 'HOME')}}/.asdf/asdf.sh; asdf plugin-add erlang"
 
-- name: add erlang plugin
+- name: install erlang plugin
   shell: zsh -lc "source {{lookup('env', 'HOME')}}/.asdf/asdf.sh; asdf install erlang 23.0"
 
 - name: set global erlang version
@@ -30,6 +30,20 @@
 
 - name: set global nodejs
   shell: zsh -lc "source {{lookup('env', 'HOME')}}/.asdf/asdf.sh; asdf global nodejs 14.0.0"
+
+
+- name: add rust plugin
+  shell: zsh -lc "source {{lookup('env', 'HOME')}}/.asdf/asdf.sh; asdf plugin-add rust"
+
+- name: install rust nightly
+  shell: zsh -lc "source {{lookup('env', 'HOME')}}/.asdf/asdf.sh; asdf install rust nightly"
+
+- name: install rust 1.43.1
+  shell: zsh -lc "source {{lookup('env', 'HOME')}}/.asdf/asdf.sh; asdf install rust 1.43.1"
+
+- name: set global rust version
+  shell: zsh -lc "source {{lookup('env', 'HOME')}}/.asdf/asdf.sh; asdf global rust nightly"
+
 
 # TODO: Replace manual installation by loops, only define parameters of plugins
 

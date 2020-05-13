@@ -100,7 +100,7 @@
     #     chsh -s /bin/zsh
 
 
-    - include_tasks: ./tasks/install_asdf.yml
+    # - include_tasks: ./tasks/install_asdf.yml
 
     # - name: install different global npm packages
     #   command: npm i -g {{item}}
@@ -108,16 +108,16 @@
     #     - meta
     #     - sass
 
-    # - name: install the slack client
-    #   become: yes
-    #   shell:
-    #     curl -v https://downloads.slack-edge.com/linux_releases/slack-desktop-4.4.2-amd64.deb --output {{lookup('env', 'HOME')}}/Downloads/slack.deb
+    - name: install the slack client
+      become: yes
+      shell:
+        curl -v https://downloads.slack-edge.com/linux_releases/slack-desktop-4.4.2-amd64.deb --output {{lookup('env', 'HOME')}}/Downloads/slack.deb
 
-    #     sudo apt-get install -y {{lookup('env', 'HOME')}}/Downloads/slack.deb
+        sudo apt-get install -y {{lookup('env', 'HOME')}}/Downloads/slack.deb
 
-    #     rm -rf {{lookup('env', 'HOME')}}/Downloads/slack.deb
+        rm -rf {{lookup('env', 'HOME')}}/Downloads/slack.deb
 
 
-    # - include_tasks: ./tasks/install_anaconda.yml
+    - include_tasks: ./tasks/install_anaconda.yml
 
 
