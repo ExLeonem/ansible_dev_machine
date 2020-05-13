@@ -1,14 +1,18 @@
 - hosts: 127.0.0.1
   connection: local
   roles:
-   - weareinteractive.users_oh_my_zsh
+   - gantsign.antigen
   vars:
    users:
-    - name: Username
-      username: "{{lookup('env', 'USER')}}"
-      authorized_keys: []
-      oh_my_zsh:
-       theme: agnoster
+    - username: "{{lookup('env', 'USER')}}"
+      become: yes
+      antigen_libraries:
+        - name: oh-my-zsh
+      antigen_theme:
+        name: agnoster
+      antigen_bundles:
+        - name: git
+        - name: docker
 
   tasks:
 
@@ -59,18 +63,14 @@
         - dirmngr
         - gpg
         - tensorman
-
-
-    - name: setup cuda support
-      become: yes
-      apt: nvidia-container-runtime
+        - nvidia-container-runtime
   
     # - include_tasks: ./tasks/install_asdf.yml
           
 
     # Install development mandatory applications
     - name: enable docker to run services at startup 
-      become_user: yes
+      become: yes
       shell: |
         systemctl start docker
         systemctl enable docker
