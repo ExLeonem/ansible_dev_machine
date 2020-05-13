@@ -99,12 +99,7 @@
     - name: set zsh as default shell
       become: yes
       shell: |
-        sudo chsh -s /bin/zsh
-
-
-    # - name: add tensorman to the docker group
-    #   become: root
-    #   command: sudo usermod -aG docker $USER
+        chsh -s /bin/zsh
 
 
     # - name: install different global npm packages
