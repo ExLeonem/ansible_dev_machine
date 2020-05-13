@@ -1,0 +1,22 @@
+- hosts: 127.0.0.1
+  connection: local
+  tasks:
+    - name: install vs-code
+      sudo: true
+      shell: |
+        curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg     
+        install -o root -g root -m 644 packages.microsoft.gpg /usr/share/keyrings/
+        sh -c 'echo "deb [arch=amd64 signed-by=/usr/share/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'
+        apt-get install apt-transport-https
+        apt-get update
+        apt-get install code
+
+
+    - name: install vs-code extensions
+      shell: |
+        code --install-extension ahmadawais.shades-of-purple
+        code --install-extension sdras.night-owl
+        code --install-extension nickdodd79.gulptasks
+        code --install-extension mjmcloug.vscode-elixir
+        code --install-extension dsznajder.es7-react-js-snippets
+        code --install-extension 42Crunch.vscode-openapi
