@@ -37,6 +37,7 @@
       loop:
         - '{{lookup("env", "HOME")}}/Desktop/projects'
         - '{{lookup("env", "HOME")}}/Desktop/studium'
+        - '{{lookup("env", "HOME")}}/Desktop/workspace'
 
 
     # Install tools & languages 
