@@ -19,6 +19,7 @@ sudo ansible-pull https://github.com/ExLeonem/ansible_dev_machine
 
 ## How to run the setup
 
+
 1. Pull the repository and install the required roles
 
 ``

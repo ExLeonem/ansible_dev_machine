@@ -17,7 +17,7 @@
   shell: |
     echo '. $HOME/.asdf/asdf.sh' >> {{lookup("env", "HOME")}}/.zshrc
 
-- include_tasks: ./tasks/install_asdf_plugins.yml
+# - include_tasks: ./tasks/install_asdf_plugins.yml
 
 
 # - include_tasks: plugins.yml
